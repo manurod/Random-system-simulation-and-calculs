@@ -1,5 +1,7 @@
 from random import random,seed,expovariate
 from pylab import array
+from numpy import linspace
+from matplotlib.pyplot import *
 import sympy as sym
 from scipy.integrate import odeint
 from scipy.linalg import solve_lyapunov
