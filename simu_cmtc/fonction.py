@@ -5,7 +5,7 @@ from matplotlib.pyplot import *
 import sympy as sym
 from scipy.integrate import odeint
 from scipy.linalg import solve_lyapunov
-
+from numpy.linalg import inv
 
 #simulation d'une chaine de markov continue
 
