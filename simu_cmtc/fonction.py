@@ -153,7 +153,7 @@ def print_simu(taux,liste_transition,X,N,time,fix=-1):
     for i in range(K):
         plot(data[0],data[1][:,i],label=str(i))
     def drift(x):
-        return (sum([liste_transition[i]*fct_taux(i,x) for i in range(len(liste_transition))],0))
+        return (sum([liste_transition[i]*taux(i,x) for i in range(len(liste_transition))],0))
     
     t = linspace(0,time,1000)
 
