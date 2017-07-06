@@ -145,6 +145,8 @@ def theorique(taux,liste_transitions,n,dim):
                                         for k_1 in range(dim)])) 
                  for j in range(dim)]) 
        for i in range(dim)]
+    for i in range(len(C)):
+        C[i]=sum(C[i])
     return(C)
 
 def print_simu(taux,liste_transition,X,N,time,fix=-1):
@@ -162,4 +164,3 @@ def print_simu(taux,liste_transition,X,N,time,fix=-1):
         plot(t,x,'--')
     legend()
     show()
-
