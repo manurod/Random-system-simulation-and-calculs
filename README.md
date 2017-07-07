@@ -14,3 +14,10 @@ the last two arguments are optionals, the argument "my_file.out" will creat a fi
 - theorique(taux,liste_transitions,n,dim) compute the coefficient C describe at the begining with theoricals formulas
 
 - print_simu(taux,liste_transition,X_0,N,time) print the simulation with the solution of the ode on the same graph.
+
+## utilise les librairies python suivantes
+- random
+- pylab
+- numpy
+- matplotlib.pyplot
+- scipy
