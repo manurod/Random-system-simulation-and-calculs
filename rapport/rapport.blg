@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2016/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: rapport.aux
+The style file: plain.bst
+Database file #1: bibli.bib
+Warning--empty journal in velov
+Warning--empty journal in meanfieldaprox
+Warning--empty journal in courscmtc
+You've used 5 entries,
+            2118 wiz_defined-function locations,
+            519 strings with 4571 characters,
+and the built_in function-call counts, 1037 in all, are:
+= -- 97
+> -- 35
+< -- 0
++ -- 15
+- -- 10
+* -- 42
+:= -- 201
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 20
+chr.to.int$ -- 0
+cite$ -- 8
+duplicate$ -- 50
+empty$ -- 86
+format.name$ -- 10
+if$ -- 203
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 5
+newline$ -- 28
+num.names$ -- 10
+pop$ -- 26
+preamble$ -- 1
+purify$ -- 15
+quote$ -- 0
+skip$ -- 35
+stack$ -- 0
+substring$ -- 25
+swap$ -- 2
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 20
+warning$ -- 3
+while$ -- 10
+width$ -- 6
+write$ -- 49
+(There were 3 warnings)
