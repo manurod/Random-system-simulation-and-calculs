@@ -66,6 +66,7 @@ convergeance. Ainsi qu'a déveloper un simulateur permetant de valider
 cette aproximation.
 
 \section{Chaînes de markov à temps continue}
+
 \cite{courscmtc}
 
 \subsection{Définition}
@@ -76,63 +77,89 @@ loi exponentiele de paramètre $\lambda \geq 0$, si  sa fonction de
 répartition est donnée par $F(t)=(1-e^{-\lambda t})$ sur
 $\mathbb{R}_+$. (et F(t)=0 sur $\mathbb{R}_-^*$).
 
-
-\subsection{Types de modèles étudiés}
 \paragraph{Processus de population markovien a temps continue}
-On considère le modèle suivant:
+
+On considère le modèle de densité de population de Kurtz suivant:
 
 \begin{itemize}
 \item N le nombre d'individue répartis dans les diffétents états.
-\item un ensemble d'état fini ou dénombrable $S$.
+\item un ensemble d'état fini $S$. On notera $n \ $ le
+  nombre d'états.
+\item pour chaque état $i \ $ on note $X_i \ $ la population dans
+  l'état $i$. On notera $X^{(N)}=(X_0,X_1,...,X_{n-1})$.
 \item un ensemble de transitions avec pour chaque transition une
-  fonction de transition associé.
+  fonction de transition associé. On représentera une transition par
+  un vecteur  $l \in \mathbb{R}^{n}$. Avec $\beta_l : \mathbb{R}^n
+  \rightarrow \mathbb{R}^+$ tels que $X^{(N)} \ $ passe de l'état $x$ à
+  $x+\frac{l}{N}$ avec un taux $N*\beta_l$.
 \item $ \{ X_i \}_{i \in S}$une distribution initiale sur l'ensemble des états.
 \end{itemize}
 
-On note $X_i$ le nombre d'individues dans l'état $i$.
-
-\paragraph{}
-Pour notre etude nous prendrons un modèle de la forme suivante:
-\begin{itemize}
-\item N la taille de la population
-\item un etat initial pour chaque état $X_i$
-\item un ensemble de vecteurs $L$ et une fonction $\beta_l : \epsilon
-  \rightarrow R^+$ tels que $X^{(N)} \ $ passe de l'état $x$ à
-  $x+\frac{l}{N}$ avec un taux $N*\beta_l$.
-\end{itemize}
-
 Pour notre étude nous nous limiterons aux modèles ne possedant qu'un
-seul point atracteur.
+seul point atracteur $x*$.
+
+On défini le drift:
+\begin{eqnarray*}
+  f(x) &=& \sum_{l \in L}l\beta_l(x)
+\end{eqnarray*}
 
 \paragraph{convergence du modèle}
+Lorsque N tend vers l'infini, le système tend vers la solution de
+l'ODE (du drift). On note $X_0$ cette solution limite.
 On peur alors montrer $E(X^{(N)})=X_0+\frac{C}{N}+O(\frac{1}{N^2}) \ $
 avec $X_0 \ $ le point fixe et $C \ $ un coefficient de correction
-dont nous allons chercher la valeur par simulation. 
+dont nous allons chercher la valeur au cours de ce stage.
 
 \subsection{Simulation d'une CMTC}
 
-Pour la simulation, nous partons d'une distribution initiale
-donnée.
+Pour la simulation, nous suivons le shémat suivant:
+
+\begin{lstlisting}[frame=single]
+  boucle:
+      trouver la transition l qui a lieux en premier
+      temps+= temps avant la transition
+\end{lstlisting}
 
 \paragraph{Methode naive}
 
 Soit $l \in L \ $ un vecteur représentant une transition. Cette
 transition est associé au taux $\beta_l \ $. Le système passe d'un
-état $X \ $ à $X+\frac{l}{N} \ $ avec le taux $N*\beta_l \ $. Cette
-transition aura lieux au temps $expo(N*\beta_l) \ $. Avec expo(i) une
+état $X \ $ à $X+\frac{l}{N} \ $ avec le taux $N*\beta_l \ $. On tire
+la v.a.  $expo(N*\beta_l) \ $ pour obtenir le temps avant cette transition. Avec expo(i) une
 loi exponentielle de paramètre i. On tire donc une loi exponentielle
-par transition puis seul la transition qui a lieux en premier est
-prise en compte.
+pour chaque transition puis seul la transition qui a lieux en premier est
+prise en compte. \\
 
 Mais il existe  une methode plus rapide et equivalente:
 
 \paragraph{Amélioration}
+
+
 Pour savoir quelle transition aura lieux en premier on peut plus
 simplement choisir une transition $l$ avec proba:
 $\frac{\beta_l}{\sum_{i \in L}\beta_i}$, en tirant juste un reel entre 0 et 1 par exemple.
 Puis une fois la transition choisi on tire une loi exponentielle de
 paramètres $\sum_{i \in L}\beta_i$ pour obtenir le temps avant la
 transition.
+
+
+\paragraph{Réalisation d'un simulateur} 
+
+J'ai codé en python le simulateur suivant prenant en entrée une chaine
+de markov a temps continue quelconque. La fonction comprend deux
+options qui sont les deux derniers arguments: on peut fixer la graine
+qui sert a génerer l'aléatoire du module random de python3. Ce qui
+sert a pouvoir refaire la même simulation avec exactement les mêmes
+conditions.(il faut alors ajouter l'argument: $fix=1234$ par exemple)
+
+La seconde option permet d'écrire dans un fichier (dont on
+précise le nom avec l'argument: $file=''mon\_fichier.out''$) le tableau
+de donnée representant la siulation efectuée.
+
+La simulation renvoie un tableau data contenant: $data[0]\ $ contient le
+tableau des temps. $data[1] \ $ contient les valeursdes
+v.a. $(X_0,X_1,...,X_{n-1})$.
+Par exemple $data[1][i]=[X_0,X_1,...,X_{n-1} ]\ $ au temps $data[0][i]$
 
 \newpage
 
@@ -191,7 +218,6 @@ transition.
 \newpage
 
 \subsection{Système d'infection: SIR}
-
 On considère le système suivant:
 
 \begin{eqnarray}
@@ -201,11 +227,12 @@ On considère le système suivant:
 \end{eqnarray}
 
 On note $X=[x_1;x_2;x_3]$ les proportions de S I R:
-\begin{itemize}
-\item$x_0= \frac{population(S)}{population\ totale}$
-\item $x_1= \frac{population(I)}{population\ totale}$
-\item $x_2= \frac{population(R)}{population\ totale}$
-\end{itemize}
+\begin{eqnarray*}
+  x_0 &=& \frac{population(S)}{population\ totale} \\
+  x_1 &=& \frac{population(I)}{population\ totale} \\
+  x_2 &=& \frac{population(R)}{population\ totale}
+\end{eqnarray*}
+
 On simule cet exemple de la façon suivante avec le simulateur codé
 précedement avec comme condition initiale $X_0=[\frac{1}{2};\frac{1}{2};0]$ \\
 
@@ -344,6 +371,7 @@ observe donc $x_s=-1 \ x_I=-1\ x_R=2$ avec un bruit important pour 100
 simulations par point. le temps de calcul pour ce résultat est
 d'environ 40 minutes (avec un code non optimisé).
 
+\newpage
 \subsection{Comparaison avec le calcul théoriquede ce coefficient}
 On peut montrer que le coefficient d'erreur en $\frac{1}{N} \ $ vaut
 exactement: \cite{meanfieldaprox}
@@ -517,6 +545,22 @@ On obtient la figure suivante:
 
 \includegraphics{bianchi.png}
 
+Le tracé suis bien la solution de l'equation différentielle qui régi
+le système. Un simple tracé comme celui-ci met déja quelques minutes a
+se faire. Le calcul du coeficient recherché en 1/N est trop long a
+calculer avec des simulations.
+
+\begin{lstlisting}[frame=single]
+theorique(fct_taux,liste_transitions,5,4)
+\end{lstlisting}
+
+Le calcul a l'aide de la formule se fait en quelques minutes et on
+obtient:  \[ -0.038851395750410606, 0.075038237961333909,
+  0.037170741481473424, -0.016174636251891139 \] 
+
+Ce système converge donc rapidement car les coefficient sont de
+l'ordre de $10^{-2}$
+
 \subsection{Velo'v}
 La répartition et l'évolution du nombre de vélo par stations de velo'v
 peut facilement se traduire en une chaine de markov. On peut utiliser
@@ -559,9 +603,30 @@ On obtient alors la courbe suivante:
 
 \includegraphics{velov.png}
 
-\section{Librairie contenant l'ensemble du code}
+\begin{lstlisting}[frame=single]
+X=[1,0,0,0,0,0,0,0,0,0]
+theorique(fct_taux,liste_transition,K,K-1)
+\end{lstlisting}
+
+On obtient alors: \\
+-0.10292176084411847, \\
+ 0.039044474621688807, \\
+ 0.064763975313775535,\\
+ 0.048762058614485009,\\
+ 0.023866044952782651,\\
+ 0.002612691487885844,\\
+ -0.01170356394907981,\\
+ -0.019540234122908881,\\
+ -0.022526472856673283 
+
+ On obtien un coefficient de l'ordre du centième.
+
+ \section{projet github}
+ Le travail efectué pendant la durée du stage est contenu dans un
+ projet github\cite{librairie} contenant:
+\subsection{Librairie python}
 L'ensemble du code est rassemblé dans une librairie python3
-\cite{librairie} qui
+ qui
 contient les fonctions suivantes:
 \begin{itemize}
   \item
@@ -576,6 +641,41 @@ contient les fonctions suivantes:
   \item $theorique(taux,liste_transition,n,dim)$ qui calcule le
     coeficient d'erreur $C \ $ de manière théorique.
 \end{itemize}
+
+\subsection{Notebook d'exemples}
+Ce fichier ipython contient les exemples étudiés pendant le stage et
+peut donc servir de notice pour l'utilisation du simulateur et des
+autres fonctions.
+
+\section{outils utilisés}
+\subsection{Org-mode dans emacs}
+Au cours de ce stage j'ai découvert org, un modude que l'on peut
+greffer a emacs servant a écrire un journal de bord de manière simple
+et propre.
+\begin{verbatim}
+sudo apt-get install emacs25 org-mode ess r-base auctex
+\end{verbatim}
+
+\subsection{jupyter-notebook}
+Le notebook jupyter est une façon simple et facilement lisible de
+coder en python par exemple.(en manipulant ici un fichier ipython)
+
+\begin{verbatim}
+sudo apt-get install jupiter-notebook ipython3 ipython3-notebook
+\end{verbatim}
+
+\subsection{librairies python3}
+Dans le code écrit j'utilise les fonctions suivantes provenant de librairies python3:
+\begin{lstlisting}
+from random import random,seed,expovariate
+from pylab import array
+from numpy import linspace,zeros
+from matplotlib.pyplot import *
+import sympy as sym
+from scipy.integrate import odeint
+from scipy.linalg import solve_lyapunov
+from numpy.linalg import inv
+\end{lstlisting}
 
 \bibliographystyle{plain}
 \bibliography{bibli}
