@@ -16,7 +16,7 @@ class Error(Exception):
 class NullRate(Error):
     def __init__(self,msg):
         self.msg = msg
-        
+
 def simu_cmtc(taux,L,X,N,time,file="",fix=-1):
     n=len(X)
     nb_trans=len(L)
@@ -31,38 +31,34 @@ def simu_cmtc(taux,L,X,N,time,file="",fix=-1):
         data=[[0],[X]]
         
     while t<time:
-        a=random()
-        
-        L_poids=array([taux(i,X) for i in range(nb_trans)])
+        L_poids=[taux(i,X) for i in range(nb_trans)]
         S=sum(L_poids)
         if S<=1e-14:
-            print(S)
-            raise NullRate('La somme des taux de transition ne devrait jamais etre nulle.')
-        
-        cumul=0
-        for i in range(nb_trans):
-            tmp=cumul + L_poids[i]/S
-            if a < tmp:
-                l=i
-                break
-            cumul=tmp
-        
-        X = X+(1./N)*L[l]
-        if max(L_poids)==0:
-            break
-
-        expo=expovariate(N*S)
-        t+=expo
-
-        if file=="":
-            data[0].append(t)
-            data[1].append(X[:])
+            print('System stalled (total rate = 0)')
+            t = time
+            data[1].append(X)
         else:
-            data.write(str(t)+" ")
-            
-            for i in range(n):
-                data.write(str(X[i])+" ")
-            data.write('\n')
+            a=random()*S
+            l=0
+            for i in range(nb_trans):
+                if a < L_poids[i]:
+                    l=i
+                    break
+                else:
+                    a -= L_poids[i]
+        
+            X = X+(1./N)*L[l]
+
+            t+=expovariate(N*S)
+
+            if file=="":
+                data[0].append(t)
+                data[1].append(X[:])
+            else:
+                data.write(str(t)+" ")
+                for i in range(n):
+                    data.write(str(X[i])+" ")
+                    data.write('\n')
     
     if file=="":
         data[1] = array(data[1])
