@@ -9,6 +9,14 @@ from numpy.linalg import inv
 
 #simulation d'une chaine de markov continue
 
+class Error(Exception):
+    """Base class for eceptions in this module."""
+    pass
+
+class NullRate(Error):
+    def __init__(self,msg):
+        self.msg = msg
+        
 def simu_cmtc(taux,L,X,N,time,file="",fix=-1):
     n=len(X)
     nb_trans=len(L)
@@ -27,6 +35,9 @@ def simu_cmtc(taux,L,X,N,time,file="",fix=-1):
         
         L_poids=array([taux(i,X) for i in range(nb_trans)])
         S=sum(L_poids)
+        if S<=1e-14:
+            print(S)
+            raise NullRate('La somme des taux de transition ne devrait jamais etre nulle.')
         
         cumul=0
         for i in range(nb_trans):
