@@ -6,6 +6,7 @@ import sympy as sym
 from scipy.integrate import odeint
 from scipy.linalg import solve_lyapunov
 from numpy.linalg import inv
+from numpy import cumsum
 
 #simulation d'une chaine de markov continue
 
@@ -40,12 +41,9 @@ def simu_cmtc(taux,L,X,N,time,file="",fix=-1):
         else:
             a=random()*S
             l=0
-            for i in range(nb_trans):
-                if a < L_poids[i]:
-                    l=i
-                    break
-                else:
-                    a -= L_poids[i]
+            while a > L_poids[l]:
+                a -= L_poids[l]
+                l += 1
         
             X = X+(1./N)*L[l]
 
