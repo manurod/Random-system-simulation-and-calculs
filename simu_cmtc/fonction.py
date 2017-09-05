@@ -153,14 +153,14 @@ def print_simu(taux,liste_transition,X,N,time,fix=-1):
     data=simu_cmtc(taux,liste_transition,X,N,time,"",fix)
     K=len(X)
     for i in range(K):
-        plot(data[0],data[1][:,i],label=str(i))
+        p=plot(data[0],data[1][:,i],label=str(i),color='C{}'.format(i))
     def drift(x):
         return (sum([liste_transition[i]*taux(i,x) for i in range(len(liste_transition))],0))
     
     t = linspace(0,time,1000)
 
+    x = odeint( lambda x,t : drift(x), X, t)
     for i in range(K):
-        x = odeint( lambda x,t : drift(x), X, t)
-        plot(t,x,'--')
+        plot(t,x[:,i],color='C{}'.format(i),linestyle='--')
     legend()
     show()
