@@ -1,0 +1,37 @@
+\select@language {french}
+\contentsline {chapter}{Introduction}{3}
+\contentsline {chapter}{\numberline {1}Processus de population et bases th\IeC {\'e}oriques}{4}
+\contentsline {section}{\numberline {1.1}Cha\IeC {\^\i }ne de Markov \IeC {\`a} temps continu}{4}
+\contentsline {paragraph}{Lois exponentielles :}{4}
+\contentsline {paragraph}{}{4}
+\contentsline {paragraph}{Cha\IeC {\^\i }ne de Markov \IeC {\`a} temps continu :}{4}
+\contentsline {section}{\numberline {1.2}Processus de population}{4}
+\contentsline {section}{\numberline {1.3}Approximations}{5}
+\contentsline {paragraph}{Th\IeC {\'e}or\IeC {\`e}me}{5}
+\contentsline {paragraph}{}{5}
+\contentsline {chapter}{\numberline {2}R\IeC {\'e}alisation d'une biblioth\IeC {\`e}que g\IeC {\'e}n\IeC {\'e}rique}{6}
+\contentsline {section}{\numberline {2.1}Le simulateur}{6}
+\contentsline {subsection}{\numberline {2.1.1}R\IeC {\'e}alisation}{6}
+\contentsline {paragraph}{M\IeC {\'e}thode naive :}{6}
+\contentsline {paragraph}{Am\IeC {\'e}lioration :}{6}
+\contentsline {paragraph}{R\IeC {\'e}alisation d'un simulateur}{6}
+\contentsline {subsection}{\numberline {2.1.2}Exemple d'utilisation: syst\IeC {\`e}me d'infection SIR}{7}
+\contentsline {section}{\numberline {2.2}Calcul du coefficient en $1/N$}{9}
+\contentsline {subsection}{\numberline {2.2.1}Par simulation}{9}
+\contentsline {paragraph}{Remarque}{9}
+\contentsline {subsection}{\numberline {2.2.2}Validation \IeC {\`a} l'aide du calcul th\IeC {\'e}orique de ce coefficient}{11}
+\contentsline {chapter}{\numberline {3}R\IeC {\'e}sultats exp\IeC {\'e}rimentaux}{13}
+\contentsline {section}{\numberline {3.1}Mod\IeC {\`e}le d'infection SIR}{13}
+\contentsline {section}{\numberline {3.2}Bianchi's formula}{13}
+\contentsline {section}{\numberline {3.3}V\IeC {\'e}lo'v}{15}
+\contentsline {chapter}{\numberline {4}Organisation du stage}{18}
+\contentsline {section}{\numberline {4.1}Projet GitHub}{18}
+\contentsline {subsection}{\numberline {4.1.1}Biblioth\IeC {\`e}que \texttt {python3}}{18}
+\contentsline {subsection}{\numberline {4.1.2}Notebook d'exemples}{18}
+\contentsline {section}{\numberline {4.2}Outils utilis\IeC {\'e}s}{18}
+\contentsline {subsection}{\numberline {4.2.1}Ubuntu 17.04}{18}
+\contentsline {subsection}{\numberline {4.2.2}Org-mode dans emacs}{18}
+\contentsline {subsection}{\numberline {4.2.3}Jupyter-notebook}{19}
+\contentsline {subsection}{\numberline {4.2.4}Biblioth\IeC {\`e}que \texttt {python3}}{19}
+\contentsline {chapter}{Conclusion}{20}
+\contentsline {chapter}{\numberline {A}Biblioth\IeC {\`e}que python3}{21}
